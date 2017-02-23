@@ -1,7 +1,10 @@
 package org.vitaly.audio;
 
 import java.time.LocalDate;
-import java.util.Objects;
+
+import static org.vitaly.audio.util.Checker.GENRE_NAME_NOT_NULL;
+import static org.vitaly.audio.util.Checker.requireNonNull;
+import static org.vitaly.audio.util.Checker.requirePositive;
 
 /**
  * Created by vitaly on 2017-02-18.
@@ -10,12 +13,12 @@ public class Song {
     private String name;
     private Genre genre;
     private LocalDate recordDate;
-    private final long length;
-    private final int kbps;
+    private final Long length;
+    private final Integer kbps;
     private String artist;
 
-    public Song(String name, Genre genre, LocalDate recordDate,
-                long length, int kbps, String artist) {
+    private Song(String name, Genre genre, LocalDate recordDate,
+                 Long length, Integer kbps, String artist) {
         this.name = name;
         this.genre = genre;
         this.recordDate = recordDate;
@@ -24,43 +27,38 @@ public class Song {
         this.artist = artist;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public Genre getGenre() {
         return genre;
     }
 
-    public LocalDate getRecordDate() {
-        return recordDate;
-    }
-
-    public long getLength() {
+    public Long getLength() {
         return length;
     }
 
-    public int getKbps() {
+    public Integer getKbps() {
         return kbps;
     }
 
-    public String getArtist() {
-        return artist;
-    }
-
-    public static Song doRecordSong(String songName, String genreName, long length, int kbps, String artistName) {
-        Objects.requireNonNull(songName, "Song name can't be null!");
-        Objects.requireNonNull(genreName, "Genre name can't be null!");
-        Objects.requireNonNull(artistName, "Artist name can't be null!");
-
-        if (length <= 0) {
-            throw new IllegalArgumentException("Song length can't be less than or equal to zero milliseconds!");
-        }
-        if (kbps <= 0) {
-            throw new IllegalArgumentException("Kbps can't be less than or equal to zero!");
-        }
+    public static Song doRecordSong(String songName, String genreName, Long length, Integer kbps, String artistName) {
+        requireNonNull(songName, "Song name can't be null!");
+        requireNonNull(genreName, GENRE_NAME_NOT_NULL);
+        requireNonNull(artistName, "Artist name can't be null!");
+        requirePositive(length, "Song length can't be less than or equal to zero milliseconds!");
+        requirePositive(kbps, "Kbps can't be less than or equal to zero!");
 
         Genre.addGenre(genreName);
         return new Song(songName, Genre.getGenre(genreName), LocalDate.now(), length, kbps, artistName);
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "name='" + name + '\'' +
+                ", genre=" + genre.getName() +
+                ", recordDate=" + recordDate +
+                ", length=" + length +
+                ", kbps=" + kbps +
+                ", artist='" + artist + '\'' +
+                '}';
     }
 }

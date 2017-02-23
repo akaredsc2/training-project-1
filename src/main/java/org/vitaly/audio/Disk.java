@@ -2,7 +2,9 @@ package org.vitaly.audio;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
+
+import static org.vitaly.audio.util.Checker.requireLessThanOrEqualTo;
+import static org.vitaly.audio.util.Checker.requireNonNull;
 
 /**
  * Created by vitaly on 2017-02-18.
@@ -33,7 +35,7 @@ public class Disk {
         return songs;
     }
 
-    public long getCdLength() {
+    public long getDiskLength() {
         long cdLength = 0;
         for (Song song : songs) {
             cdLength += song.getLength();
@@ -41,25 +43,21 @@ public class Disk {
         return cdLength;
     }
 
-    private Disk doBurnDisk(String name, List<Song> songs) {
-        Objects.requireNonNull(name, "Disk name can't be null!");
-        Objects.requireNonNull(songs, "List of songs can't be null!");
+    public static Disk doBurnDisk(String name, List<Song> songs) {
+        requireNonNull(name, "Disk name can't be null!");
+        requireNonNull(songs, "List of songs can't be null!");
 
         long totalLength = 0;
         for (Song song : songs) {
             totalLength += song.getLength();
         }
-        if (totalLength > MAX_LENGTH) {
-            throw new IllegalArgumentException("Total song length is greater than 80 minutes!");
-        }
+        requireLessThanOrEqualTo(totalLength, MAX_LENGTH, "Total song length is greater than 80 minutes!");
 
         long totalSize = 0;
         for (Song song : songs) {
             totalSize += song.getLength() / 1000 * song.getKbps();
         }
-        if (totalSize > MAX_SIZE) {
-            throw new IllegalArgumentException("Total song size is greater than 700 megabytes!");
-        }
+        requireLessThanOrEqualTo(totalSize, MAX_SIZE, "Total song size is greater than 700 megabytes!");
 
         return new Disk(name, LocalDate.now(), songs);
     }
