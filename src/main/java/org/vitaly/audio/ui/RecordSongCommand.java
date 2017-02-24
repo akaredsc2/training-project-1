@@ -17,23 +17,27 @@ public class RecordSongCommand implements Command {
         System.out.println("Enter genre name : ");
         String genreName = scanner.nextLine();
 
-        System.out.println("Enter song length(milliseconds) : ");
-        Long songLength = Long.valueOf(scanner.nextLine());
-        if (songLength <= 0) {
-            System.out.println("Song length must be positive!");
-            return;
+        try {
+            System.out.println("Enter song length(milliseconds) : ");
+            Long songLength = Long.valueOf(scanner.nextLine());
+            if (songLength <= 0) {
+                System.out.println("Song length must be positive!");
+                return;
+            }
+
+            System.out.println("Enter song kbps : ");
+            Integer kbps = Integer.valueOf(scanner.nextLine());
+            if (kbps <= 0) {
+                System.out.println("Song kbps must be positive!");
+                return;
+            }
+
+            System.out.println("Enter artist name : ");
+            String artistName = scanner.nextLine();
+
+            Gui.getSongs().add(Song.doRecordSong(songName, genreName, songLength, kbps, artistName));
+        } catch (NumberFormatException e) {
+            System.out.println("Wrong number format");
         }
-
-        System.out.println("Enter song kbps : ");
-        Integer kbps = Integer.valueOf(scanner.nextLine());
-        if (kbps <= 0) {
-            System.out.println("Song kbps must be positive!");
-            return;
-        }
-
-        System.out.println("Enter artist name : ");
-        String artistName = scanner.nextLine();
-
-        Gui.getSongs().add(Song.doRecordSong(songName, genreName, songLength, kbps, artistName));
     }
 }
