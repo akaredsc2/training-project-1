@@ -21,6 +21,7 @@ public class CommandFactory {
     private Command showLengthCommand = new ShowLengthCommand();
     private Command insertDiskCommand = new InsertDiskCommand();
     private Command sortByGenreCommand = new SortByGenreCommand();
+    private Command playNextCommand = new PlayNextCommand();
 
     private CommandFactory() {
     }
@@ -57,6 +58,8 @@ public class CommandFactory {
                 return insertDiskCommand;
             case SORT_BY_GENRE:
                 return sortByGenreCommand;
+            case PLAY_NEXT:
+                return playNextCommand;
             default:
                 return incorrectCommand;
         }

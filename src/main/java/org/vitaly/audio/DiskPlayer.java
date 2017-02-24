@@ -40,7 +40,7 @@ public class DiskPlayer {
             return "Now playing : " + song.toString();
         } else if (!disk.getSongs().isEmpty()) {
             prepareToPlay();
-            return "Back to beginning of playlist." + playNext();
+            return playNext();
         }
         return "Disk is empty";
     }

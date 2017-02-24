@@ -17,5 +17,6 @@ public enum CommandEnum {
     LIST_DISKS,
     SHOW_LENGTH,
     INSERT_DISK,
-    SORT_BY_GENRE
+    SORT_BY_GENRE,
+    PLAY_NEXT
 }
