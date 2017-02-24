@@ -1,6 +1,8 @@
 package org.vitaly.audio;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.vitaly.audio.util.Checker.requireLessThanOrEqualTo;
@@ -20,7 +22,7 @@ public class Disk {
     private Disk(String name, LocalDate burnDate, List<Song> songs) {
         this.name = name;
         this.burnDate = burnDate;
-        this.songs = songs;
+        this.songs = new ArrayList<>(songs);
     }
 
     public String getName() {
@@ -60,5 +62,14 @@ public class Disk {
         requireLessThanOrEqualTo(totalSize, MAX_SIZE, "Total song size is greater than 700 megabytes!");
 
         return new Disk(name, LocalDate.now(), songs);
+    }
+
+    @Override
+    public String toString() {
+        return "Disk{" +
+                "name='" + name + '\'' +
+                ", burnDate=" + burnDate +
+                ", songs=" + songs +
+                '}';
     }
 }

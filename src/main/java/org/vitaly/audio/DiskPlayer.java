@@ -11,10 +11,6 @@ import static org.vitaly.audio.util.Checker.requireNonNull;
 public class DiskPlayer {
     private Disk disk;
     private Iterator<Song> playlist;
-
-    public DiskPlayer() {
-    }
-
     public boolean hasDisk() {
         return disk != null;
     }
@@ -31,6 +27,7 @@ public class DiskPlayer {
 
     public void sortSongsByGenre() {
         disk.getSongs().sort(Comparator.comparingInt(x -> x.getGenre().getName().hashCode()));
+        prepareToPlay();
     }
 
     public void prepareToPlay() {
@@ -41,9 +38,9 @@ public class DiskPlayer {
         if (playlist.hasNext()) {
             Song song = playlist.next();
             return "Now playing : " + song.toString();
-        } else if (disk.getSongs().size() > 0) {
+        } else if (!disk.getSongs().isEmpty()) {
             prepareToPlay();
-            return playNext();
+            return "Back to beginning of playlist." + playNext();
         }
         return "Disk is empty";
     }

@@ -27,8 +27,19 @@ public class Genre {
         return genres.get(genreName.toLowerCase().trim());
     }
 
+    public static Map<String, Genre> getAllGenres() {
+        return genres;
+    }
+
     public static void addGenre(String genreName) {
         requireNonNull(genreName, GENRE_NAME_NOT_NULL);
         genres.put(genreName.toLowerCase().trim(), new Genre(genreName.toLowerCase().trim()));
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
