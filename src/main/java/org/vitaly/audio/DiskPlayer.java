@@ -3,6 +3,8 @@ package org.vitaly.audio;
 import java.util.Comparator;
 import java.util.Iterator;
 
+import static org.vitaly.audio.util.Checker.requireNonNull;
+
 /**
  * Created by vitaly on 2017-02-23.
  */
@@ -10,24 +12,21 @@ public class DiskPlayer {
     private Disk disk;
     private Iterator<Song> playlist;
 
-    private DiskPlayer() {
+    public DiskPlayer() {
     }
 
     public boolean hasDisk() {
         return disk != null;
     }
 
-    public void setDisk(Disk disk) {
-        this.disk = disk;
-        this.playlist = null;
+    public Disk getDisk() {
+        return disk;
     }
 
-    public long getTotalLength() {
-        long result = 0;
-        for (Song song : disk.getSongs()) {
-            result += song.getLength();
-        }
-        return result;
+    public void changeDisk(Disk disk) {
+        requireNonNull(disk, "Disk can't be null!");
+        this.disk = disk;
+        prepareToPlay();
     }
 
     public void sortSongsByGenre() {
@@ -44,7 +43,7 @@ public class DiskPlayer {
             return "Now playing : " + song.toString();
         } else if (disk.getSongs().size() > 0) {
             prepareToPlay();
-            playNext();
+            return playNext();
         }
         return "Disk is empty";
     }

@@ -1,7 +1,7 @@
 package org.vitaly.audio;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import static org.vitaly.audio.util.Checker.GENRE_NAME_NOT_NULL;
 import static org.vitaly.audio.util.Checker.requireNonNull;
@@ -10,7 +10,7 @@ import static org.vitaly.audio.util.Checker.requireNonNull;
  * Created by vitaly on 2017-02-23.
  */
 public class Genre {
-    private static final Map<String, Genre> genres = new TreeMap<>();
+    private static final Map<String, Genre> genres = new HashMap<>();
 
     private String name;
 
