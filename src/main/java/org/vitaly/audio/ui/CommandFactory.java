@@ -22,6 +22,7 @@ public class CommandFactory {
     private Command insertDiskCommand = new InsertDiskCommand();
     private Command sortByGenreCommand = new SortByGenreCommand();
     private Command playNextCommand = new PlayNextCommand();
+    private Command songsBetweenCommand = new SongsBetweenCommand();
 
     private CommandFactory() {
     }
@@ -60,6 +61,8 @@ public class CommandFactory {
                 return sortByGenreCommand;
             case PLAY_NEXT:
                 return playNextCommand;
+            case SONGS_BETWEEN:
+                return songsBetweenCommand;
             default:
                 return incorrectCommand;
         }

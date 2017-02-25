@@ -91,4 +91,24 @@ public class DiskPlayerTest {
         String expected = "Disk is empty";
         assertThat(actual, equalTo(expected));
     }
+
+    @Test
+    public void getSongLengthBetween() throws Exception {
+        List<Song> actual = diskPlayer.getSongWithLengthBetween(200_000, 300_000);
+
+        List<Song> expected = new ArrayList<>();
+        Collections.addAll(expected, song3, song4);
+
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lowerBoundLessThanOrEqualToZeroShouldThrowException() throws Exception {
+        diskPlayer.getSongWithLengthBetween(-200_000, 300_000);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void higherBoundLessThanOrEqualToZeroShouldThrowException() throws Exception {
+        diskPlayer.getSongWithLengthBetween(200_000, -300_000);
+    }
 }

@@ -18,5 +18,6 @@ public enum CommandEnum {
     SHOW_LENGTH,
     INSERT_DISK,
     SORT_BY_GENRE,
-    PLAY_NEXT
+    PLAY_NEXT,
+    SONGS_BETWEEN
 }

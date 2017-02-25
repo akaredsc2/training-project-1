@@ -20,5 +20,6 @@ public class HelpCommand implements Command {
         System.out.println("insert_disk");
         System.out.println("sort_by_genre");
         System.out.println("play_next");
+        System.out.println("songs_between");
     }
 }

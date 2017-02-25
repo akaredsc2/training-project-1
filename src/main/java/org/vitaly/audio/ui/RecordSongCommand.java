@@ -36,7 +36,7 @@ public class RecordSongCommand implements Command {
             String artistName = scanner.nextLine();
 
             Gui.getSongs().add(Song.doRecordSong(songName, genreName, songLength, kbps, artistName));
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             System.out.println("Wrong number format");
         }
     }

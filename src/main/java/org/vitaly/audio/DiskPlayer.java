@@ -1,8 +1,13 @@
 package org.vitaly.audio;
 
+import org.vitaly.audio.util.Checker;
+
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
+import static org.vitaly.audio.util.Checker.*;
 import static org.vitaly.audio.util.Checker.requireNonNull;
 
 /**
@@ -11,6 +16,7 @@ import static org.vitaly.audio.util.Checker.requireNonNull;
 public class DiskPlayer {
     private Disk disk;
     private Iterator<Song> playlist;
+
     public boolean hasDisk() {
         return disk != null;
     }
@@ -43,5 +49,18 @@ public class DiskPlayer {
             return playNext();
         }
         return "Disk is empty";
+    }
+
+    public List<Song> getSongWithLengthBetween(long lowerBound, long higherBound) {
+        requirePositive(lowerBound, "Lower bound must be positive");
+        requirePositive(higherBound, "Higher bound must be positive");
+        List<Song> result = new ArrayList<>();
+        for (Song song : disk.getSongs()) {
+            long songLength = song.getLength();
+            if (lowerBound <= songLength && songLength <= higherBound) {
+                result.add(song);
+            }
+        }
+        return result;
     }
 }
